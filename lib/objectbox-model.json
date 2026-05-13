@@ -1,0 +1,86 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:506204465699262922",
+      "lastPropertyId": "8:715786692391068368",
+      "name": "BookingEntity",
+      "properties": [
+        {
+          "id": "1:6528405355464951196",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7546711604992719418",
+          "name": "hotelId",
+          "type": 6
+        },
+        {
+          "id": "3:3742222186167609400",
+          "name": "startDate",
+          "type": 10
+        },
+        {
+          "id": "4:9080722141958866991",
+          "name": "endDate",
+          "type": 10
+        },
+        {
+          "id": "5:288608378981647187",
+          "name": "totalPrice",
+          "type": 6
+        },
+        {
+          "id": "6:4328120364272168851",
+          "name": "hotelTitle",
+          "type": 9
+        },
+        {
+          "id": "7:2960009377409984567",
+          "name": "hotelPlace",
+          "type": 9
+        },
+        {
+          "id": "8:715786692391068368",
+          "name": "hotelPicture",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:3799799457236826484",
+      "lastPropertyId": "2:2223057209943291237",
+      "name": "FavoriteEntity",
+      "properties": [
+        {
+          "id": "1:4948668884196465112",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2223057209943291237",
+          "name": "hotelId",
+          "type": 6
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:3799799457236826484",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

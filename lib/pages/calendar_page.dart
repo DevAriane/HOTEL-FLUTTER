@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../widgets/app_bar.dart';
 import 'booking_summary_page.dart';
-import '../constants.dart';
+import '../app_color.dart';
 import '../models/hotel_model.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +18,7 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Calendar'),
+      appBar: MyAppBar(title: 'Calendar', hotelData: hotel),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -102,13 +102,13 @@ class _CalendarRangeState extends State<CalendarRange> {
           ),
           calendarStyle: const CalendarStyle(
             isTodayHighlighted: false,
-            rangeHighlightColor: dGreen,
+            rangeHighlightColor: AppColor.dGreen,
             rangeStartDecoration: BoxDecoration(
-              color: dGreen,
+              color: AppColor.dGreen,
               shape: BoxShape.circle,
             ),
             rangeEndDecoration: BoxDecoration(
-              color: dGreen,
+              color: AppColor.dGreen,
               shape: BoxShape.circle,
             ),
           ),
@@ -124,7 +124,7 @@ class _CalendarRangeState extends State<CalendarRange> {
           },
         ),
         const ListTile(
-          leading: Icon(Icons.event_repeat, color: dGreen),
+          leading: Icon(Icons.event_repeat, color: AppColor.dGreen),
           title: Text('Flexible with dates'),
         ),
         Container(
@@ -132,7 +132,7 @@ class _CalendarRangeState extends State<CalendarRange> {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: dGreen,
+              backgroundColor: AppColor.dGreen,
               padding: const EdgeInsets.all(15),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),

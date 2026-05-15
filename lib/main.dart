@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hotel/pages/home_content.dart';
 import 'package:provider/provider.dart';
 import 'services/hotel_service.dart';
 import 'data/hotel_data.dart';
 import 'main_layout.dart';
 import 'controllers/favorites_controller.dart';
+import 'pages/screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +35,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Hotels Booking',
-      home: const MainLayout(),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const Screen()),
+        GetPage(name: '/second', page: () => const MainLayout())
+      ],
     );
   }
 }

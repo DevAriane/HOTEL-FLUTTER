@@ -23,7 +23,7 @@ class BookingSummaryPage extends StatelessWidget {
     int totalPrice = days * hotel.price;
 
     return Scaffold(
-      appBar: MyAppBar(title: 'Récapitulatif'),
+      appBar: MyAppBar(title: 'Récapitulatif',hotelData: hotel),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(

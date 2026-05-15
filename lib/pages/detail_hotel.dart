@@ -12,7 +12,7 @@ class DetailHotel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Detail'),
+      appBar: MyAppBar(title: 'Detail', hotelData: hotel),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

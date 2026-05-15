@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 
 class HotelCard extends StatelessWidget {
+  
   final Hotel hotelData;
   const HotelCard(this.hotelData, {super.key});
 
@@ -67,7 +68,7 @@ class HotelCard extends StatelessWidget {
                         },
                         icon: Icon(
                           isFav ? Icons.favorite : Icons.favorite_border,
-                          color: isFav ? Colors.red : Colors.green,
+                          color: isFav ? Colors.green : Colors.grey[600],
                           size: 22,
                         ),
                       ),

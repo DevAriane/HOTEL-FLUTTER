@@ -18,7 +18,8 @@ class SearchResultsPage extends StatelessWidget {
     }).toList();
 
     return Scaffold(
-      appBar: MyAppBar(title: "Resultat de recherche pour ${SearchQuery}"),
+      appBar: MyAppBar(
+          title: "Resultat de recherche pour ${SearchQuery}", hotelData: null),
       body: results.isEmpty
           ? Center(
               child: Column(

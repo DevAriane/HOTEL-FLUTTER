@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:hotel/models/hotel_model.dart';
 import 'package:hotel/services/hotel_service.dart';
-import '../data/hotel_data.dart';
+import '../controllers/hotel_controller.dart';
 
 class FavoritesController extends GetxController {
   var favoriteHotels = <Hotel>[].obs;
@@ -16,7 +16,7 @@ class FavoritesController extends GetxController {
   }
 
   void _loadFavorites(ObjectBoxService objectBox) {
-    final allHotelsProvider = Get.find<HotelProvider>();
+    final allHotelsProvider = Get.find<HotelController>();
     final favoriteIds = objectBox.getFavoriteIds();
 
     final List<Hotel> loadedFavorites = [];

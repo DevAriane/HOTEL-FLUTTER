@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hotel/pages/home_content.dart';
 import 'package:provider/provider.dart';
 import 'services/hotel_service.dart';
-import 'data/hotel_data.dart';
 import 'main_layout.dart';
 import 'controllers/favorites_controller.dart';
 import 'pages/screen.dart';
+import 'controllers/hotel_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,17 +13,13 @@ void main() async {
   final objectBoxService = await ObjectBoxService().init();
   Get.put(objectBoxService);
 
-  final hotelProvider = HotelProvider();
-  Get.put(hotelProvider);
+  final hotelController = HotelController();
+
+  Get.put(HotelController());
 
   Get.put(FavoritesController());
 
-  runApp(
-    ChangeNotifierProvider.value(
-      value: hotelProvider,
-      child: const MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

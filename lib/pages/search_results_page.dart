@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../data/hotel_data.dart';
+import '../controllers/hotel_controller.dart';
 import 'package:provider/provider.dart';
 import '../widgets/app_bar.dart';
 import 'package:hotel/widgets/hotel_card.dart';
@@ -11,7 +11,7 @@ class SearchResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hotels = context.watch<HotelProvider>().hotels;
+    final hotels = context.watch<HotelController>().hotels;
     final results = hotels.where((hotel) {
       return hotel.title.toLowerCase().contains(SearchQuery.toLowerCase()) ||
           hotel.place.toLowerCase().contains(SearchQuery.toLowerCase());

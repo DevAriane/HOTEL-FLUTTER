@@ -4,10 +4,9 @@ import 'package:hotel/controllers/favorites_controller.dart';
 import 'package:hotel/models/hotel_model.dart';
 import 'package:hotel/pages/detail_hotel.dart';
 import 'package:get/get.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HotelCard extends StatelessWidget {
-  
   final Hotel hotelData;
   const HotelCard(this.hotelData, {super.key});
 
@@ -18,18 +17,18 @@ class HotelCard extends StatelessWidget {
         Get.to(DetailHotel(hotel: hotelData));
       },
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         height: 250,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(18)),
+          borderRadius: const BorderRadius.all(Radius.circular(18)),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.shade200,
               spreadRadius: 4,
               blurRadius: 6,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -42,11 +41,24 @@ class HotelCard extends StatelessWidget {
                     topLeft: Radius.circular(18),
                     topRight: Radius.circular(18),
                   ),
-                  child: Image.asset(
-                    hotelData.picture,
+                  child: CachedNetworkImage(
+                    imageUrl: hotelData.picture,
                     height: 140,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      height: 140,
+                      color: Colors.grey[200],
+                      child: const Center(
+                          child:
+                              CircularProgressIndicator(color: Colors.green)),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      height: 140,
+                      color: Colors.grey[300],
+                      child:
+                          const Icon(Icons.hotel, size: 40, color: Colors.grey),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -78,15 +90,18 @@ class HotelCard extends StatelessWidget {
               ],
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    hotelData.title,
-                    style: GoogleFonts.nunito(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
+                  Expanded(
+                    child: Text(
+                      hotelData.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.nunito(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                   Text(
@@ -100,23 +115,26 @@ class HotelCard extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    hotelData.place,
-                    style: GoogleFonts.nunito(
-                      fontSize: 14,
-                      color: Colors.grey[500],
-                      fontWeight: FontWeight.w400,
+                  Expanded(
+                    child: Text(
+                      hotelData.place,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.nunito(
+                        fontSize: 14,
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                   Row(
                     children: [
-                      Icon(Icons.place, color: Colors.green, size: 14.0),
+                      const Icon(Icons.place, color: Colors.green, size: 14.0),
                       Text(
-                        '${hotelData.distance} km de la ville',
+                        '${hotelData.distance} km',
                         style: GoogleFonts.nunito(
                           fontSize: 14,
                           color: Colors.grey[500],
@@ -125,6 +143,7 @@ class HotelCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(width: 5),
                   Text(
                     'par nuit',
                     style: GoogleFonts.nunito(
@@ -137,19 +156,20 @@ class HotelCard extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(10, 3, 10, 0),
+              margin: const EdgeInsets.fromLTRB(10, 3, 10, 0),
               child: Row(
                 children: [
                   Row(
                     children: List.generate(5, (index) {
                       return Icon(
-                        index < 4 ? Icons.star_rate : Icons.star_border,
-                        color: Colors.green,
-                        size: 14.0,
-                      );
+                          index < hotelData.rating.floor()
+                              ? Icons.star_rate
+                              : Icons.star_border,
+                          color: Colors.green,
+                          size: 14);
                     }),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Text(
                     '${hotelData.review} avis',
                     style: GoogleFonts.nunito(

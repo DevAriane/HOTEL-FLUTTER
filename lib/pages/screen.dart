@@ -15,10 +15,10 @@ class Screen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle.light,
-          backgroundColor: AppColor.vertFeuille,
+          backgroundColor: AppColor.dGreen,
         ),
         body: Container(
-            color: AppColor.vertFeuille,
+            color: AppColor.dGreen,
             child: SafeArea(
                 child: Center(
               child: Obx(() => AnimatedOpacity(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'services/hotel_service.dart';
 import 'main_layout.dart';
 import 'controllers/favorites_controller.dart';
@@ -12,8 +11,6 @@ void main() async {
 
   final objectBoxService = await ObjectBoxService().init();
   Get.put(objectBoxService);
-
-  final hotelController = HotelController();
 
   Get.put(HotelController());
 

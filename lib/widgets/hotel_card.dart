@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotel/controllers/favorites_controller.dart';
 import 'package:hotel/models/hotel_model.dart';
 import 'package:hotel/pages/detail_hotel.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../app_color.dart';
+import '../controllers/favorites_controller.dart';
 
 class HotelCard extends StatelessWidget {
   final Hotel hotelData;
@@ -13,51 +14,55 @@ class HotelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.to(DetailHotel(hotel: hotelData));
-      },
+      onTap: () => Get.to(DetailHotel(hotel: hotelData)),
       child: Container(
-        margin: const EdgeInsets.all(10),
-        height: 250,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(18)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade200,
-              spreadRadius: 4,
-              blurRadius: 6,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
+        width: 220,
+        margin: const EdgeInsets.only(right: 15, bottom: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(18),
-                    topRight: Radius.circular(18),
-                  ),
+                  borderRadius: BorderRadius.circular(18),
                   child: CachedNetworkImage(
                     imageUrl: hotelData.picture,
-                    height: 140,
+                    height: 150,
                     width: double.infinity,
                     fit: BoxFit.cover,
                     placeholder: (context, url) => Container(
-                      height: 140,
+                      height: 150,
                       color: Colors.grey[200],
-                      child: const Center(
-                          child:
-                              CircularProgressIndicator(color: Colors.green)),
                     ),
                     errorWidget: (context, url, error) => Container(
-                      height: 140,
+                      height: 150,
                       color: Colors.grey[300],
-                      child:
-                          const Icon(Icons.hotel, size: 40, color: Colors.grey),
+                      child: const Icon(Icons.hotel, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.4),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.star, color: Colors.amber, size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          hotelData.rating.toString(),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -65,122 +70,99 @@ class HotelCard extends StatelessWidget {
                   top: 8,
                   right: 8,
                   child: Obx(() {
-                    final isFav = Get.find<FavoritesController>().isFavorite(
-                      hotelData,
-                    );
-                    return Material(
-                      color: Colors.white,
-                      shape: const CircleBorder(),
-                      elevation: 2,
-                      child: IconButton(
-                        onPressed: () {
-                          Get.find<FavoritesController>().toggleFavorite(
-                            hotelData,
-                          );
-                        },
-                        icon: Icon(
-                          isFav ? Icons.favorite : Icons.favorite_border,
-                          color: isFav ? Colors.green : Colors.grey[600],
-                          size: 22,
+                    final isFav =
+                        Get.find<FavoritesController>().isFavorite(hotelData);
+                    return SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Material(
+                        color: Colors.white,
+                        shape: const CircleBorder(),
+                        elevation: 2,
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          onPressed: () {
+                            Get.find<FavoritesController>()
+                                .toggleFavorite(hotelData);
+                          },
+                          icon: Icon(
+                            isFav ? Icons.favorite : Icons.favorite_border,
+                            color: isFav ? AppColor.dGreen : AppColor.pewter,
+                            size:
+                                20, 
+                          ),
                         ),
                       ),
                     );
                   }),
-                ),
+                )
               ],
             ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      hotelData.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    '${hotelData.price} FCFA',
-                    style: GoogleFonts.nunito(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      hotelData.place,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.nunito(
-                        fontSize: 14,
-                        color: Colors.grey[500],
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  Row(
+            const SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.place, color: Colors.green, size: 14.0),
                       Text(
-                        '${hotelData.distance} km',
+                        hotelData.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.nunito(
-                          fontSize: 14,
-                          color: Colors.grey[500],
-                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Text(
+                            'à partir de ${hotelData.price} FCFA',
+                            style: GoogleFonts.nunito(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '/ nuit',
+                            style: GoogleFonts.nunito(
+                              fontSize: 13,
+                              color: Colors.grey[500],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  const SizedBox(width: 5),
-                  Text(
-                    'par nuit',
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Get.to(() => ReservationPage(hotel: hotelData));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.dGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  ),
+                  child: Text(
+                    'Réserver',
                     style: GoogleFonts.nunito(
-                      fontSize: 14,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(10, 3, 10, 0),
-              child: Row(
-                children: [
-                  Row(
-                    children: List.generate(5, (index) {
-                      return Icon(
-                          index < hotelData.rating.floor()
-                              ? Icons.star_rate
-                              : Icons.star_border,
-                          color: Colors.green,
-                          size: 14);
-                    }),
-                  ),
-                  const SizedBox(width: 20),
-                  Text(
-                    '${hotelData.review} avis',
-                    style: GoogleFonts.nunito(
-                      fontSize: 14,
-                      color: Colors.grey[500],
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                ),
+              ],
+            )
           ],
         ),
       ),

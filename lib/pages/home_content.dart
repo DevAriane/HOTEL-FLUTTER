@@ -6,6 +6,7 @@ import '../controllers/hotel_controller.dart';
 import '../widgets/hotel_card.dart';
 import '../app_color.dart';
 
+
 class HomeContent extends StatelessWidget {
   final HotelController controller = Get.find<HotelController>();
 

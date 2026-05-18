@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel/models/hotel_model.dart';
 import 'package:hotel/app_color.dart';
 import 'calendar_page.dart';
+import '../controllers/favorites_controller.dart';
 
 class DetailHotel extends StatelessWidget {
   final Hotel hotel;
@@ -62,30 +63,39 @@ class DetailHotel extends StatelessWidget {
                                     color: AppColor.dGreen),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        AppColor.blanc.withValues(alpha: 0.9),
-                                    shape: BoxShape.circle,
+                            Positioned(
+                              top: 8,
+                              right: 8,
+                              child: Obx(() {
+                                final isFav = Get.find<FavoritesController>()
+                                    .isFavorite(hotel);
+                                return SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: Material(
+                                    color: Colors.white,
+                                    shape: const CircleBorder(),
+                                    elevation: 2,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      onPressed: () {
+                                        Get.find<FavoritesController>()
+                                            .toggleFavorite(hotel);
+                                      },
+                                      icon: Icon(
+                                        isFav
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: isFav
+                                            ? AppColor.dGreen
+                                            : AppColor.pewter,
+                                        size: 20,
+                                      ),
+                                    ),
                                   ),
-                                  child:
-                                      Icon(Icons.share, color: AppColor.dGreen),
-                                ),
-                                const SizedBox(width: 10),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        AppColor.blanc.withValues(alpha: 0.9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Icon(Icons.favorite_border,
-                                      color: AppColor.dGreen),
-                                ),
-                              ],
+                                );
+                              }),
                             )
                           ],
                         ),
@@ -108,26 +118,35 @@ class DetailHotel extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.location_on,
-                              color: AppColor.pewter, size: 18),
-                          const SizedBox(width: 5),
-                          Text(
-                            hotel.place,
-                            style: GoogleFonts.nunito(
-                              color: AppColor.pewter,
-                              fontSize: 15,
-                            ),
+                          Row(
+                            children: [
+                              Icon(Icons.location_on,
+                                  color: AppColor.pewter, size: 18),
+                              const SizedBox(width: 5),
+                              Text(
+                                hotel.place,
+                                style: GoogleFonts.nunito(
+                                  color: AppColor.pewter,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 15),
-                          Icon(Icons.star, color: Colors.amber, size: 18),
-                          const SizedBox(width: 5),
-                          Text(
-                            "${hotel.rating}",
-                            style: GoogleFonts.nunito(
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.noir,
-                            ),
+                          Row(
+                            children: [
+                              Icon(Icons.star, color: Colors.amber, size: 18),
+                              const SizedBox(width: 5),
+                              Text(
+                                "${hotel.rating}",
+                                style: GoogleFonts.nunito(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.noir,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

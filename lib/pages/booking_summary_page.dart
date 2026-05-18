@@ -9,12 +9,19 @@ class BookingSummaryPage extends StatelessWidget {
   final Hotel hotel;
   final DateTime start;
   final DateTime end;
+  final int guests;
+  final int bedrooms;
+  final String specialRequest;
+
 
   const BookingSummaryPage({
     super.key,
     required this.hotel,
     required this.start,
     required this.end,
+    required this.bedrooms,
+    required this.guests,
+    required this.specialRequest,
   });
 
   @override

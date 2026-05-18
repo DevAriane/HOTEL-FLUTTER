@@ -3,6 +3,7 @@ import 'pages/home_content.dart';
 import 'pages/favorites_page.dart';
 import 'pages/profile_page.dart';
 import 'widgets/floating_bottom_nav_bar.dart';
+import './pages/my_bookings_page.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -17,6 +18,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _screens = [
     HomeContent(),
     FavoritesPage(),
+    MyBookingsPage(),
     ProfilePage(),
   ];
 

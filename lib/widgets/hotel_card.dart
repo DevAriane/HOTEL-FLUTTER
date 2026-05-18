@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../app_color.dart';
 import '../controllers/favorites_controller.dart';
+import '../pages/calendar_page.dart';
 
 class HotelCard extends StatelessWidget {
   final Hotel hotelData;
@@ -89,8 +90,7 @@ class HotelCard extends StatelessWidget {
                           icon: Icon(
                             isFav ? Icons.favorite : Icons.favorite_border,
                             color: isFav ? AppColor.dGreen : AppColor.pewter,
-                            size:
-                                20, 
+                            size: 20,
                           ),
                         ),
                       ),
@@ -143,7 +143,7 @@ class HotelCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Get.to(() => ReservationPage(hotel: hotelData));
+                    Get.to(() => CalendarPage(hotel: hotelData));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.dGreen,

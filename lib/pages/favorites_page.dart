@@ -25,6 +25,12 @@ class FavoritesPage extends StatelessWidget {
           );
         } else {
           return ListView(
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 7,
+              top: 30,
+              bottom: 85,
+            ),
             children: favController.favoriteHotels
                 .map((hotel) => HotelCard(hotel))
                 .toList(),

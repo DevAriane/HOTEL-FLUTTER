@@ -5,6 +5,7 @@ import 'main_layout.dart';
 import 'controllers/favorites_controller.dart';
 import 'pages/screen.dart';
 import 'controllers/hotel_controller.dart';
+import './controllers/booking_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,7 @@ void main() async {
   Get.put(HotelController());
 
   Get.put(FavoritesController());
+  Get.put(BookingController());
 
   runApp(MyApp());
 }

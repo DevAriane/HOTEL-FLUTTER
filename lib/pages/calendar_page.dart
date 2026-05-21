@@ -214,18 +214,18 @@ class _CalendarPageState extends State<CalendarPage> {
                               final nights =
                                   _checkOut!.difference(_checkIn!).inDays;
                               final totalPrice = nights * widget.hotel.price;
-                              // Get.to(
-                              //   Payment(
-                              //     hotel: widget.hotel,
-                              //     checkIn: _checkIn!,
-                              //     checkOut: _checkOut!,
-                              //     nights: nights,
-                              //     totalPrice: totalPrice.toDouble(),
-                              //     guests: _guestCount,
-                              //     bedrooms: _bedroomCount,
-                              //     specialRequest: _specialRequest,
-                              //   ),
-                              // );
+                              Get.to(
+                                Payment(
+                                  hotel: widget.hotel,
+                                  checkIn: _checkIn!,
+                                  checkOut: _checkOut!,
+                                  nights: nights,
+                                  totalPrice: totalPrice.toDouble(),
+                                  guests: _guestCount,
+                                  bedrooms: _bedroomCount,
+                                  specialRequest: _specialRequest,
+                                ),
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

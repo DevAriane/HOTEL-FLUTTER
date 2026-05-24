@@ -100,7 +100,7 @@ class BookingSummaryPage extends StatelessWidget {
                 const SizedBox(height: 15),
                 ElevatedButton(
                   onPressed: () {
-                    Get.to(MyBookingsPage());
+                    // Get.to(MyBookingsPage());
                   },
                   child: Container(
                     width: double.infinity,

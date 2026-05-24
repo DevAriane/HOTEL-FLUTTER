@@ -50,6 +50,8 @@ class DetailHotel extends StatelessWidget {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment
+                              .center, // Aligne les deux boutons verticalement
                           children: [
                             GestureDetector(
                               onTap: () => Get.back(),
@@ -63,40 +65,37 @@ class DetailHotel extends StatelessWidget {
                                     color: AppColor.dGreen),
                               ),
                             ),
-                            Positioned(
-                              top: 8,
-                              right: 8,
-                              child: Obx(() {
-                                final isFav = Get.find<FavoritesController>()
-                                    .isFavorite(hotel);
-                                return SizedBox(
-                                  width: 40,
-                                  height: 40,
-                                  child: Material(
-                                    color: Colors.white,
-                                    shape: const CircleBorder(),
-                                    elevation: 2,
-                                    child: IconButton(
-                                      padding: EdgeInsets.zero,
-                                      constraints: const BoxConstraints(),
-                                      onPressed: () {
-                                        Get.find<FavoritesController>()
-                                            .toggleFavorite(hotel);
-                                      },
-                                      icon: Icon(
-                                        isFav
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: isFav
-                                            ? AppColor.dGreen
-                                            : AppColor.pewter,
-                                        size: 20,
-                                      ),
+                            //  CORRECTION : Le Positioned inutile et problématique a été retiré d'ici
+                            Obx(() {
+                              final isFav = Get.find<FavoritesController>()
+                                  .isFavorite(hotel);
+                              return SizedBox(
+                                width: 40,
+                                height: 40,
+                                child: Material(
+                                  color: Colors.white,
+                                  shape: const CircleBorder(),
+                                  elevation: 2,
+                                  child: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    onPressed: () {
+                                      Get.find<FavoritesController>()
+                                          .toggleFavorite(hotel);
+                                    },
+                                    icon: Icon(
+                                      isFav
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: isFav
+                                          ? AppColor.dGreen
+                                          : AppColor.pewter,
+                                      size: 20,
                                     ),
                                   ),
-                                );
-                              }),
-                            )
+                                ),
+                              );
+                            }),
                           ],
                         ),
                       ),
@@ -201,6 +200,7 @@ class DetailHotel extends StatelessWidget {
               ],
             ),
           ),
+          // Ce Positioned ci est correct car son parent direct est le Stack du Scaffold body
           Positioned(
             bottom: 0,
             left: 0,
@@ -236,10 +236,7 @@ class DetailHotel extends StatelessWidget {
                         ),
                         TextSpan(
                           text: " / nuit",
-                          style: GoogleFonts.nunito(
-                            fontSize: 14,
-                            color: AppColor.silver,
-                          ),
+                          // style: GoogleFonts.silver,
                         ),
                       ],
                     ),

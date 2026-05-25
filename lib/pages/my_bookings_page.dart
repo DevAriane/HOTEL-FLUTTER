@@ -7,16 +7,15 @@ class MyBookingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get the controller (it will be auto-disposed if needed)
     final BookingController controller = Get.find<BookingController>();
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Mes Réservations'),
         backgroundColor: Colors.white,
       ),
       body: Obx(() {
-        // ← Reactive update when bookingHotel changes
         final bookings = controller.bookingHotel;
         if (bookings.isEmpty) {
           return Center(

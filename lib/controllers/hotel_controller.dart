@@ -7,6 +7,7 @@ import '../models/hotel_model.dart';
 class HotelController extends GetxController {
   var allHotels = <Hotel>[].obs;
   var filteredHotels = <Hotel>[].obs;
+  var showAll = false.obs; // 👈 nouveau
 
   List<Hotel> get hotels => filteredHotels.toList();
 
@@ -60,6 +61,15 @@ class HotelController extends GetxController {
   }
 
   void applyFilters() {
+    // Si un filtre est actif, on force l'affichage de tous les résultats
+    final bool filterActive = searchQuery.value.isNotEmpty ||
+        minPrice.value > 0 ||
+        maxPrice.value < 200000 ||
+        minRating.value > 0;
+    if (filterActive) {
+      showAll.value = true;
+    }
+
     var list = List<Hotel>.from(allHotels);
 
     list = list
@@ -91,6 +101,11 @@ class HotelController extends GetxController {
     maxPrice.value = 200000;
     minRating.value = 0.0;
     searchQuery.value = '';
+    showAll.value = false; // on revient à l'affichage réduit
+  }
+
+  void toggleShowAll() {
+    showAll.value = !showAll.value;
   }
 
   @override

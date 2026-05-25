@@ -97,54 +97,31 @@ class BookingSummaryPage extends StatelessWidget {
                   value: "${totalPrice.toStringAsFixed(2)} FCFA",
                   isPrice: true,
                 ),
-                const SizedBox(height: 15),
-                ElevatedButton(
-                  onPressed: () {
-                    // Get.to(MyBookingsPage());
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color(0xFF000000)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Voir ma réservation",
-                            style: TextStyle(color: AppColor.blanc),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
                 const SizedBox(
                   height: 15,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.to(HomeContent());
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: AppColor.noir,
-                        )),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: AppColor.noir,
+                      )),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
+                          onPressed: () {
+                            Get.to(MyBookingsPage());
+                          },
                           child: Text(
                             "Retour a l'accueil",
                             style: TextStyle(color: AppColor.dGreen),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ],

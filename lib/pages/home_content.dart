@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/hotel_controller.dart';
 import '../widgets/hotel_card.dart';
 import '../app_color.dart';
-
+import '../models/hotel_model.dart';
 
 class HomeContent extends StatelessWidget {
   final HotelController controller = Get.find<HotelController>();
@@ -27,20 +27,72 @@ class HomeContent extends StatelessWidget {
       body: Column(
         children: [
           const HeaderSearchSection(),
-          const SizedBox(height: 8),
+          
+          Obx(() {
+            final bool filterActive = controller.searchQuery.value.isNotEmpty ||
+                controller.minPrice.value > 0 ||
+                controller.maxPrice.value < 200000 ||
+                controller.minRating.value > 0;
+
+            if (!filterActive) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: controller.toggleShowAll,
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColor.dGreen,
+                      ),
+                      child: Text(
+                        controller.showAll.value ? 'Voir moins' : 'Voir tout',
+                        style: GoogleFonts.nunito(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          }),
+          const SizedBox(height: 4),
           Expanded(
             child: Obx(() {
               if (controller.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               }
-              if (controller.filteredHotels.isEmpty) {
+
+            
+              final bool filterActive =
+                  controller.searchQuery.value.isNotEmpty ||
+                      controller.minPrice.value > 0 ||
+                      controller.maxPrice.value < 200000 ||
+                      controller.minRating.value > 0;
+
+              List<Hotel> displayList;
+              if (filterActive) {
+            
+                displayList = controller.filteredHotels;
+              } else if (controller.showAll.value) {
+      
+                displayList = controller.filteredHotels;
+              } else {
+              
+                displayList = controller.filteredHotels.take(4).toList();
+              }
+
+              if (displayList.isEmpty) {
                 return Center(
                   child: Text(
-                    'Aucun hotel trouvees',
+                    'Aucun hôtel trouvé',
                     style: GoogleFonts.nunito(color: AppColor.pewter),
                   ),
                 );
               }
+
               return ListView.builder(
                 padding: const EdgeInsets.only(
                   left: 20,
@@ -48,9 +100,9 @@ class HomeContent extends StatelessWidget {
                   top: 2,
                   bottom: 85,
                 ),
-                itemCount: controller.filteredHotels.length,
+                itemCount: displayList.length,
                 itemBuilder: (context, index) {
-                  final hotel = controller.filteredHotels[index];
+                  final hotel = displayList[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: HotelCard(hotel),
@@ -64,7 +116,6 @@ class HomeContent extends StatelessWidget {
     );
   }
 }
-
 class HeaderSearchSection extends StatelessWidget {
   const HeaderSearchSection({super.key});
 
@@ -101,30 +152,6 @@ class HeaderSearchSection extends StatelessWidget {
               const SizedBox(width: 15),
               Expanded(child: _buildRatingFilter(controller)),
             ],
-          ),
-          const SizedBox(height: 10),
-          SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: ElevatedButton.icon(
-              onPressed: () => controller.applyFilters(),
-              icon: Icon(Icons.search, color: AppColor.dGreen, size: 24),
-              label: Text(
-                'Chercher',
-                style: GoogleFonts.nunito(
-                  color: AppColor.dGreen,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 0,
-              ),
-            ),
           ),
         ],
       ),

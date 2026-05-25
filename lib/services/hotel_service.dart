@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hotel/models/booking_entity.dart';
 import 'package:hotel/models/favorite_entity.dart';
-import '../models/booking_entity.dart';
 
 class ObjectBoxService extends GetxService {
   final List<FavoriteEntity> _favorites = [];

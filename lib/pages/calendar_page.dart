@@ -384,7 +384,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Selectionnez les  dates",
+                        "Selectionnez les dates",
                         style: GoogleFonts.nunito(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -427,7 +427,14 @@ class _CalendarPageState extends State<CalendarPage> {
                           color: AppColor.dGreen,
                           shape: BoxShape.circle,
                         ),
+                        // Style pour les dates désactivées (grisées)
+                        disabledDecoration: const BoxDecoration(
+                          color: Colors.transparent,
+                        ),
                       ),
+                      // 🟢 Désactive toutes les dates avant aujourd'hui
+                      enabledDayPredicate: (day) =>
+                          !day.isBefore(DateTime.now()),
                       onRangeSelected: (start, end, focused) {
                         setModalState(() {
                           rangeStart = start;
@@ -454,20 +461,18 @@ class _CalendarPageState extends State<CalendarPage> {
                       onPressed: () {
                         if (rangeStart != null && rangeEnd != null) {
                           setState(() {
-                            if (isCheckIn) {
-                              _checkIn = rangeStart;
-                              _checkOut = rangeEnd;
-                            } else {
-                              _checkIn = rangeStart;
-                              _checkOut = rangeEnd;
-                            }
+                            // Mettre à jour les deux dates (peu importe isCheckIn)
+                            _checkIn = rangeStart;
+                            _checkOut = rangeEnd;
                           });
                           Navigator.pop(context);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text(
-                                    'Veuillez sélectionner une plage de valeurs')),
+                              content: Text(
+                                'Veuillez sélectionner une plage de dates',
+                              ),
+                            ),
                           );
                         }
                       },

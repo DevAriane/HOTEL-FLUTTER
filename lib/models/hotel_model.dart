@@ -29,7 +29,7 @@ class Hotel {
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
       description: json['description'] ?? '',
-      distance: (json['distance'] ?? 0).toDouble(),
+      distance: (json['distance'] as num? ?? 0).toDouble(),
       review: json['review'] ?? 0,
       price: json['price'] ?? 0,
       picture: json['picture'] ?? '',

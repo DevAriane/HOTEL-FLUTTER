@@ -27,7 +27,6 @@ class HomeContent extends StatelessWidget {
       body: Column(
         children: [
           const HeaderSearchSection(),
-          
           Obx(() {
             final bool filterActive = controller.searchQuery.value.isNotEmpty ||
                 controller.minPrice.value > 0 ||
@@ -65,7 +64,6 @@ class HomeContent extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               }
 
-            
               final bool filterActive =
                   controller.searchQuery.value.isNotEmpty ||
                       controller.minPrice.value > 0 ||
@@ -74,13 +72,10 @@ class HomeContent extends StatelessWidget {
 
               List<Hotel> displayList;
               if (filterActive) {
-            
                 displayList = controller.filteredHotels;
               } else if (controller.showAll.value) {
-      
                 displayList = controller.filteredHotels;
               } else {
-              
                 displayList = controller.filteredHotels.take(4).toList();
               }
 
@@ -116,6 +111,7 @@ class HomeContent extends StatelessWidget {
     );
   }
 }
+
 class HeaderSearchSection extends StatelessWidget {
   const HeaderSearchSection({super.key});
 

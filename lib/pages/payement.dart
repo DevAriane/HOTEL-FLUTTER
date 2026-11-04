@@ -140,7 +140,7 @@ class Payment extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Confirm Payment',
+                  'Confirmez le Payement',
                   style: GoogleFonts.nunito(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

@@ -20,7 +20,7 @@ class HotelController extends GetxController {
 
   Timer? _debounceTimer;
 
-  final String apiUrl = 'https://api.jsonbin.io/v3/b/6a095f58adc21f119ab1042a';
+  final String apiUrl ='https://api.jsonbin.io/v3/b/6a095f58adc21f119ab1042a';
 
   @override
   void onInit() {

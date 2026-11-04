@@ -1,7 +1,5 @@
 plugins {
     id("com.android.application")
-
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -15,17 +13,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
- kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
     }
-}
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.hotel"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -34,10 +29,13 @@ android {
 
     buildTypes {
         release {
-isMinifyEnabled = true // ou false si vous voulez tester sans minification
-        isShrinkResources = true
-        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-    
+            // Désactivez temporairement la minification pour tester si le build passe
+            isMinifyEnabled = false
+            isShrinkResources = false
+            
+            // Si vous souhaitez garder minifyEnabled = true, assurez-vous que vos règles ProGuard n'enlèvent pas les classes essentielles.
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            
             signingConfig = signingConfigs.getByName("debug")
         }
     }
